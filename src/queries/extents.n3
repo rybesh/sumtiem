@@ -1,0 +1,115 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix e: <http://eulersharp.sourceforge.net/2003/03swap/log-rules#> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix string: <http://www.w3.org/2000/10/swap/string#> .
+@prefix sum: <http://github.com/rybesh/sumtiem/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+
+# labels
+{
+    ?i rdfs:label ?label .
+} => {
+    ?i rdfs:label ?label .
+} .
+
+# extents
+{
+    ?i a time:ProperInterval ;
+        time:intervalStartedBy ?start ;
+        time:intervalFinishedBy ?finish .
+
+} => {
+    ?i a sum:Extent ;
+        time:intervalStartedBy ?start ;
+        time:intervalFinishedBy ?finish .
+
+    ?start a sum:Event .
+    ?finish a sum:Event .
+} .
+
+# fully dated events
+{
+    ?i time:hasDateTimeDescription ?dtd .
+
+    ?dtd time:year ?y ; time:month ?m ; time:day ?d .
+
+    # This format string left-pads values to produce YYYY-MM-DD
+    # see: https://www.swi-prolog.org/pldoc/doc_for?object=format/2
+    ("~|~`0t~d~4+-~|~`0t~d~2+-~|~`0t~d~2+" ?y ?m ?d) e:format ?date .
+
+} => {
+    ?i dcterms:date ?date .
+} .
+
+# events with dates missing year values
+{
+    ?i time:hasDateTimeDescription ?dtd .
+
+    ?dtd time:month ?m ; time:day ?d .
+
+    _:t log:notIncludes { ?dtd time:year ?y } .
+
+    # This format string left-pads values to produce XXXX-MM-DD
+    # see: https://www.swi-prolog.org/pldoc/doc_for?object=format/2
+    ("XXXX-~|~`0t~d~2+-~|~`0t~d~2+" ?m ?d) e:format ?date .
+
+} => {
+    ?i dcterms:date ?date .
+} .
+
+# events with dates missing day / month values
+{
+    ?i time:hasDateTimeDescription ?dtd .
+
+    ?dtd time:year ?y .
+
+    _:t log:notIncludes { ?dtd time:month ?m ; time:day ?d } .
+
+    # This format string left-pads values to produce YYYY-XX-XX
+    # see: https://www.swi-prolog.org/pldoc/doc_for?object=format/2
+    ("~|~`0t~d~4+-XX-XX" ?y) e:format ?date .
+
+} => {
+    ?i dcterms:date ?date .
+} .
+
+# bounded events
+{
+    ?i time:intervalIn ?bounds .
+} => {
+    ?i time:intervalIn ?bounds .
+} .
+
+# layout relations between events
+{
+    ?i1 time:before ?i2 .
+} => {
+    ?i1 sum:layoutAbove ?i2 .
+} .
+
+# layout relations between extents
+{
+    ?i time:intervalStartedBy [
+        time:intervalIn ?startBounds
+    ] .
+} => {
+    ?startBounds sum:layoutRightOf ?i .
+} .
+{
+    ?i time:intervalFinishedBy [
+        time:intervalIn ?finishBounds
+    ] .
+} => {
+    ?finishBounds sum:layoutRightOf ?i .
+} .
+{
+    ?i1 time:intervalOverlaps ?i2 .
+} => {
+    ?i2 sum:layoutRightOf ?i1 .
+} .
+{
+    ?i1 time:intervalDuring ?i2 .
+} => {
+    ?i2 sum:layoutRightOf ?i1 .
+} .

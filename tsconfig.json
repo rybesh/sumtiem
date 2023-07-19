@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["DOM"],
+    "module": "es2020",
+    "moduleResolution": "nodenext",
+    "plugins": [{"name": "typescript-eslint-language-service"}],
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es2020"
+  },
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
+}
