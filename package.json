@@ -2,32 +2,32 @@
   "type": "module",
   "devDependencies": {
     "@rdfjs/types": "^1.1.0",
-    "@types/n3": "^1.10.4",
-    "@types/readable-stream": "^2.3.15",
-    "@typescript-eslint/eslint-plugin": "5.58.0",
-    "@typescript-eslint/parser": "5.58.0",
-    "esbuild": "^0.17.16",
-    "eslint": "^8.38.0",
-    "prettier": "^2.8.7",
-    "typescript": "^5.0.4",
+    "@types/n3": "^1.16.2",
+    "@types/readable-stream": "^4.0.3",
+    "@typescript-eslint/eslint-plugin": "6.7.5",
+    "@typescript-eslint/parser": "6.7.5",
+    "esbuild": "^0.19.4",
+    "eslint": "^8.51.0",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2",
     "typescript-eslint-language-service": "^5.0.5"
   },
   "prettier": {
     "semi": false
   },
   "dependencies": {
-    "@codemirror/autocomplete": "^6.9.1",
+    "@codemirror/autocomplete": "^6.10.1",
     "@codemirror/commands": "^6.3.0",
     "@codemirror/language": "^6.9.1",
     "@codemirror/lint": "^6.4.2",
     "@codemirror/search": "^6.5.4",
     "@codemirror/state": "^6.2.1",
-    "@codemirror/view": "^6.21.0",
+    "@codemirror/view": "^6.21.3",
     "@lezer/common": "^1.1.0",
     "@svgdotjs/svg.js": "^3.2.0",
     "codemirror-lang-notation3": "^0.0.3",
     "eyereasoner": "^4.17.0",
-    "n3": "^1.16.4",
+    "n3": "^1.17.1",
     "readable-stream": "^4.4.2"
   }
 }
