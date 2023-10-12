@@ -8,3 +8,17 @@ body {
     margin: 0;
     padding: 0;
 }
+#container {
+    display: flex;
+    overflow: auto;
+}
+#editor {
+    flex: 1;
+    border-right: 1px solid #dddddd;
+}
+#visualization {
+    flex: 1;
+}
+.cm-lineNumbers {
+    min-width: 3em;
+}
