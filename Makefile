@@ -1,4 +1,4 @@
-.PHONY: all clean run serve watch
+.PHONY: all clean relock run serve watch
 
 all: \
 	www/index.js \
@@ -13,6 +13,10 @@ run: www/index.js
 
 serve: build.cjs all
 	node $< serve
+
+relock:
+	rm -f package-lock.json
+	npm i --package-lock-only
 
 clean:
 	rm -rf node_modules www
