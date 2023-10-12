@@ -49,11 +49,10 @@ async function main(): Promise<void> {
   window.setInterval(() => {
     if (dataOrRulesChanged) {
       dataOrRulesChanged = false
-      console.log("reasoning and rendering visualization...")
       executeQuery(n3.data.quads.concat(n3.rules.quads), n3.query.quads).then(
         (resources: Resource[]) => {
           render(visualization, resources)
-        }
+        },
       )
     }
   }, 10)
